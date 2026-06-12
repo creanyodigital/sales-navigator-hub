@@ -9,38 +9,193 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as LoginRouteImport } from './routes/login'
+import { Route as ForbiddenRouteImport } from './routes/forbidden'
+import { Route as AppRouteImport } from './routes/_app'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AppReportsRouteImport } from './routes/_app.reports'
+import { Route as AppProspectsRouteImport } from './routes/_app.prospects'
+import { Route as AppProspectingRouteImport } from './routes/_app.prospecting'
+import { Route as AppHitlClientRouteImport } from './routes/_app.hitl-client'
+import { Route as AppHitlRouteImport } from './routes/_app.hitl'
+import { Route as AppDashboardRouteImport } from './routes/_app.dashboard'
+import { Route as AppClientsRouteImport } from './routes/_app.clients'
+import { Route as AppCalendarRouteImport } from './routes/_app.calendar'
 
+const LoginRoute = LoginRouteImport.update({
+  id: '/login',
+  path: '/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ForbiddenRoute = ForbiddenRouteImport.update({
+  id: '/forbidden',
+  path: '/forbidden',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AppRoute = AppRouteImport.update({
+  id: '/_app',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AppReportsRoute = AppReportsRouteImport.update({
+  id: '/reports',
+  path: '/reports',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppProspectsRoute = AppProspectsRouteImport.update({
+  id: '/prospects',
+  path: '/prospects',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppProspectingRoute = AppProspectingRouteImport.update({
+  id: '/prospecting',
+  path: '/prospecting',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppHitlClientRoute = AppHitlClientRouteImport.update({
+  id: '/hitl-client',
+  path: '/hitl-client',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppHitlRoute = AppHitlRouteImport.update({
+  id: '/hitl',
+  path: '/hitl',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppDashboardRoute = AppDashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppClientsRoute = AppClientsRouteImport.update({
+  id: '/clients',
+  path: '/clients',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppCalendarRoute = AppCalendarRouteImport.update({
+  id: '/calendar',
+  path: '/calendar',
+  getParentRoute: () => AppRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/forbidden': typeof ForbiddenRoute
+  '/login': typeof LoginRoute
+  '/calendar': typeof AppCalendarRoute
+  '/clients': typeof AppClientsRoute
+  '/dashboard': typeof AppDashboardRoute
+  '/hitl': typeof AppHitlRoute
+  '/hitl-client': typeof AppHitlClientRoute
+  '/prospecting': typeof AppProspectingRoute
+  '/prospects': typeof AppProspectsRoute
+  '/reports': typeof AppReportsRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/forbidden': typeof ForbiddenRoute
+  '/login': typeof LoginRoute
+  '/calendar': typeof AppCalendarRoute
+  '/clients': typeof AppClientsRoute
+  '/dashboard': typeof AppDashboardRoute
+  '/hitl': typeof AppHitlRoute
+  '/hitl-client': typeof AppHitlClientRoute
+  '/prospecting': typeof AppProspectingRoute
+  '/prospects': typeof AppProspectsRoute
+  '/reports': typeof AppReportsRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/_app': typeof AppRouteWithChildren
+  '/forbidden': typeof ForbiddenRoute
+  '/login': typeof LoginRoute
+  '/_app/calendar': typeof AppCalendarRoute
+  '/_app/clients': typeof AppClientsRoute
+  '/_app/dashboard': typeof AppDashboardRoute
+  '/_app/hitl': typeof AppHitlRoute
+  '/_app/hitl-client': typeof AppHitlClientRoute
+  '/_app/prospecting': typeof AppProspectingRoute
+  '/_app/prospects': typeof AppProspectsRoute
+  '/_app/reports': typeof AppReportsRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/forbidden'
+    | '/login'
+    | '/calendar'
+    | '/clients'
+    | '/dashboard'
+    | '/hitl'
+    | '/hitl-client'
+    | '/prospecting'
+    | '/prospects'
+    | '/reports'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/forbidden'
+    | '/login'
+    | '/calendar'
+    | '/clients'
+    | '/dashboard'
+    | '/hitl'
+    | '/hitl-client'
+    | '/prospecting'
+    | '/prospects'
+    | '/reports'
+  id:
+    | '__root__'
+    | '/'
+    | '/_app'
+    | '/forbidden'
+    | '/login'
+    | '/_app/calendar'
+    | '/_app/clients'
+    | '/_app/dashboard'
+    | '/_app/hitl'
+    | '/_app/hitl-client'
+    | '/_app/prospecting'
+    | '/_app/prospects'
+    | '/_app/reports'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AppRoute: typeof AppRouteWithChildren
+  ForbiddenRoute: typeof ForbiddenRoute
+  LoginRoute: typeof LoginRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/forbidden': {
+      id: '/forbidden'
+      path: '/forbidden'
+      fullPath: '/forbidden'
+      preLoaderRoute: typeof ForbiddenRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_app': {
+      id: '/_app'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof AppRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -48,22 +203,95 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_app/reports': {
+      id: '/_app/reports'
+      path: '/reports'
+      fullPath: '/reports'
+      preLoaderRoute: typeof AppReportsRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/prospects': {
+      id: '/_app/prospects'
+      path: '/prospects'
+      fullPath: '/prospects'
+      preLoaderRoute: typeof AppProspectsRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/prospecting': {
+      id: '/_app/prospecting'
+      path: '/prospecting'
+      fullPath: '/prospecting'
+      preLoaderRoute: typeof AppProspectingRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/hitl-client': {
+      id: '/_app/hitl-client'
+      path: '/hitl-client'
+      fullPath: '/hitl-client'
+      preLoaderRoute: typeof AppHitlClientRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/hitl': {
+      id: '/_app/hitl'
+      path: '/hitl'
+      fullPath: '/hitl'
+      preLoaderRoute: typeof AppHitlRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/dashboard': {
+      id: '/_app/dashboard'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof AppDashboardRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/clients': {
+      id: '/_app/clients'
+      path: '/clients'
+      fullPath: '/clients'
+      preLoaderRoute: typeof AppClientsRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/calendar': {
+      id: '/_app/calendar'
+      path: '/calendar'
+      fullPath: '/calendar'
+      preLoaderRoute: typeof AppCalendarRouteImport
+      parentRoute: typeof AppRoute
+    }
   }
 }
 
+interface AppRouteChildren {
+  AppCalendarRoute: typeof AppCalendarRoute
+  AppClientsRoute: typeof AppClientsRoute
+  AppDashboardRoute: typeof AppDashboardRoute
+  AppHitlRoute: typeof AppHitlRoute
+  AppHitlClientRoute: typeof AppHitlClientRoute
+  AppProspectingRoute: typeof AppProspectingRoute
+  AppProspectsRoute: typeof AppProspectsRoute
+  AppReportsRoute: typeof AppReportsRoute
+}
+
+const AppRouteChildren: AppRouteChildren = {
+  AppCalendarRoute: AppCalendarRoute,
+  AppClientsRoute: AppClientsRoute,
+  AppDashboardRoute: AppDashboardRoute,
+  AppHitlRoute: AppHitlRoute,
+  AppHitlClientRoute: AppHitlClientRoute,
+  AppProspectingRoute: AppProspectingRoute,
+  AppProspectsRoute: AppProspectsRoute,
+  AppReportsRoute: AppReportsRoute,
+}
+
+const AppRouteWithChildren = AppRoute._addFileChildren(AppRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AppRoute: AppRouteWithChildren,
+  ForbiddenRoute: ForbiddenRoute,
+  LoginRoute: LoginRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
