@@ -33,7 +33,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { mockClients } from "@/lib/mocks/clients";
-import type { CoreClient, ServiceMode } from "@/integrations/supabase/types";
+import type { CoreClient, ServiceMode } from "@/types/portal";
 
 export const Route = createFileRoute("/_app/clients")({
   component: ClientsPage,

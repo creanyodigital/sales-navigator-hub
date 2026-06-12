@@ -1,6 +1,6 @@
 import { createContext, useContext, useState, type ReactNode } from "react";
 import { mockClients } from "@/lib/mocks/clients";
-import type { CoreClient } from "@/integrations/supabase/types";
+import type { CoreClient } from "@/types/portal";
 
 interface OperationsContextValue {
   clients: CoreClient[];

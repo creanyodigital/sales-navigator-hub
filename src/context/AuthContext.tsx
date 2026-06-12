@@ -1,7 +1,7 @@
 import { createContext, useContext, useEffect, useState, type ReactNode } from "react";
 import type { Session, User } from "@supabase/supabase-js";
 import { supabaseCore } from "@/integrations/supabase/core";
-import type { AppRole, CoreClient, CoreUser, ServiceMode } from "@/integrations/supabase/types";
+import type { AppRole, CoreClient, CoreUser, ServiceMode } from "@/types/portal";
 
 interface AuthContextValue {
   user: User | null;

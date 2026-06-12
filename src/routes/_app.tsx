@@ -4,7 +4,7 @@ import { AppSidebar } from "@/components/layout/AppSidebar";
 import { AppNavbar } from "@/components/layout/AppNavbar";
 import { useAuth } from "@/context/AuthContext";
 import { OperationsProvider } from "@/context/OperationsContext";
-import type { AppRole } from "@/integrations/supabase/types";
+import type { AppRole } from "@/types/portal";
 
 export const Route = createFileRoute("/_app")({
   component: AppLayout,

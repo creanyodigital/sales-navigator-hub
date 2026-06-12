@@ -1,4 +1,4 @@
-import type { CoreClient } from "@/integrations/supabase/types";
+import type { CoreClient } from "@/types/portal";
 
 export const mockClients: CoreClient[] = [
   { id: "c-001", name: "Acme Corp", schema_name: "client_acme", service_mode: "full_service", is_active: true },
