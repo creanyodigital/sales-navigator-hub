@@ -6,13 +6,20 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { useAuth } from "@/context/AuthContext";
+import type { AppRole } from "@/types/portal";
 
 export const Route = createFileRoute("/login")({
   component: LoginPage,
 });
 
+const demoRoles: { label: string; role: AppRole; color: string }[] = [
+  { label: "Demo Administrador", role: "admin", color: "bg-[var(--brand-purple)]" },
+  { label: "Demo Staff", role: "staff", color: "bg-[var(--brand-orange)]" },
+  { label: "Demo Cliente", role: "client", color: "bg-[var(--brand-pink)]" },
+];
+
 function LoginPage() {
-  const { signIn } = useAuth();
+  const { signIn, signInMock } = useAuth();
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -28,6 +35,12 @@ function LoginPage() {
       return;
     }
     toast.success("Sesión iniciada");
+    navigate({ to: "/" });
+  };
+
+  const onDemo = (role: AppRole) => {
+    signInMock(role);
+    toast.success(`Modo demo: ${role}`);
     navigate({ to: "/" });
   };
 
@@ -47,7 +60,7 @@ function LoginPage() {
           <CardTitle className="text-2xl">Sales Portal</CardTitle>
           <CardDescription>Inicia sesión para acceder al portal</CardDescription>
         </CardHeader>
-        <CardContent>
+        <CardContent className="space-y-6">
           <form onSubmit={onSubmit} className="space-y-4">
             <div className="space-y-2">
               <Label htmlFor="email">Email</Label>
@@ -80,6 +93,30 @@ function LoginPage() {
               La autenticación se realiza contra Supabase Core.
             </p>
           </form>
+
+          <div className="relative">
+            <div className="absolute inset-0 flex items-center">
+              <span className="w-full border-t" />
+            </div>
+            <div className="relative flex justify-center text-xs uppercase">
+              <span className="bg-card px-2 text-muted-foreground">O prueba el portal</span>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-3 gap-2">
+            {demoRoles.map(({ label, role, color }) => (
+              <Button
+                key={role}
+                type="button"
+                variant="outline"
+                className={`h-auto flex-col gap-1 border-0 py-3 text-xs font-medium text-white hover:opacity-90 ${color}`}
+                onClick={() => onDemo(role)}
+              >
+                <span className="font-semibold">{label.split(" ")[1]}</span>
+                <span className="opacity-80">{label.split(" ")[0]}</span>
+              </Button>
+            ))}
+          </div>
         </CardContent>
       </Card>
     </div>
